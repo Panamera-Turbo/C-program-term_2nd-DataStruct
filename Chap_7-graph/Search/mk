@@ -1,0 +1,31 @@
+#!/bin/bash
+
+if [ $# -lt 2 ];    #判断，如果命令行参数小于（less than）2（不含mk），执行then
+then
+    echo "Usage: mkdepth <graph-name> <search-method>"
+    echo "Currently avialable graph: AdjMatrix | AdjList"
+    echo "Avialable method: depth | breadth"                 #输出用法（echo后面的内容）
+    exit -1
+fi
+
+if [ ! -d ../${1} ];    #${1}:第一个命令行参数   -d：类型为文件夹  ../${1}:路径   判断：如果不存在
+then
+    echo "Path ${1} doesn't exist."
+    exit -2
+fi
+
+if [ ${2} == "depth" ];
+then
+    declare -x container=stack  #声明变量名 变量值
+else
+    declare -x container=queue
+fi
+
+declare -x grpath=${1} method=${2}_${1}
+
+sed -i "s/GRPATH/${1}/" search.h    #sed：流编辑器。在文件里执行命令
+                                    #"s/GRPATH/${1}/"：正则表达式。s：substitute，替换，把search.h里的GRAPH换成我们输入的命令行参数
+                                    #啥也别管，记得双引号，确保变量没问题。
+make                                #发出make命令，（调用makefile）
+unset -v container grpath method    #改回去
+sed -i "s/${1}/GRPATH/" search.h    
