@@ -42,12 +42,12 @@ bool del_list(LListPtr L, int i, ElemType *e)
     return true;
 }
 //---------------------------------------------------------------------------------------------------------------
-void traverse(LListPtr L, CALLBACK f)
+void traverse(LListPtr L, CALLBACK func)
 {
     NodePtr p = L->next;
 	while (p != L)
 	{
-        f(&p->data);
+        func(&p->data);
         p = p->next;
 	}
 }

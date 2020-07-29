@@ -1,5 +1,5 @@
 sources = *.c
-target = list.out
+target = circle_list
 CC = gcc
 CCFLAG = -g -Wall -fsanitize=address
 

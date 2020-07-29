@@ -66,12 +66,12 @@ bool del_list(LListPtr L, int i, ElemType *e)
 }
 //---------------------------------------------------------------------------------------------------------------
 //遍历
-void traverse(LListPtr L, CALLBACK f)
+void traverse(LListPtr L, CALLBACK func)
 {
     NodePtr p = L->next;
 	while (p != NULL)
 	{
-        f(&p->data);
+        func(&p->data);
         p = p->next;
 	}
 }

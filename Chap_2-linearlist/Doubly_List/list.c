@@ -51,18 +51,40 @@ bool ins_list(LListPtr L, int i, ElemType e)
 }
 
 //---------------------------------------------------------------------------------------------------------------
-//待完成
+//删除指定位置元素
 bool del_list(LListPtr L, int i, ElemType *e)
 {
+	NodePtr p = L, q;
+	int k = 1;
+    
+    /*从"头"开始，查找第i-1个结点*/
+	while (p != NULL && k < i)              /*表未查完且未查到第i-1个时重复，找到p指向第i-1个*/ 
+	{ 
+		p = p->next;
+		++k; 
+	}
+
+	if (p == NULL && k < i)                 /*如当前位置p为空表已找完还未数到第i个，说明位置不合理*/ 
+	{ 
+		printf("位置不合理!");
+		return false;
+	}
+
+	q = p->next;
+	p->next = p->next->next;
+	p->next->prior = p;
+
+	free(q);
+
     return true;
 }
 //---------------------------------------------------------------------------------------------------------------
-void traverse(LListPtr L, CALLBACK f)
+void traverse(LListPtr L, CALLBACK func)
 {
     NodePtr p = L->next;
 	while (p != NULL)
 	{
-        f(&p->data);
+        func(&p->data);
         p = p->next;
 	}
 }

@@ -28,13 +28,15 @@ int main(){
     for(int i=1; i<10; ++i)             //赋值
         ins_list(list, i, i+10);
     
-    del_list(list, 3, &e);
+    traverse(list, print), puts("");    //遍历一下
 
-    traverse(list, print);             //遍历一下
+    del_list(list, 3, &e);              //删除一个元素
+
+    traverse(list, print), puts("");    //遍历一下
     
-    puts("");
+    
 
-    printf("%d\n", reverse_i(list, 3)); //  
+    printf("%4d\n", reverse_i(list, 3)); //  
 
     destroy_list(list);                 //释放
 
