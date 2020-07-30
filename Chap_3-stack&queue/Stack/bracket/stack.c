@@ -1,17 +1,17 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <stdlib.h>         /*******链栈*******/
 #include <malloc.h>
 #include <stdbool.h>
 #include "stack.h"
 
 //-----------------------------------------------------------------------------
-//初始化栈
-void init_stack(StackPtr s){
+void init_stack(StackPtr s)
+{//初始化栈
     s->next = NULL;
 }
 //-----------------------------------------------------------------------------
-//压栈
-void push_stack(StackPtr s, char c){
+void push_stack(StackPtr s, char c)
+{//压栈
     Node* p = (Node*)malloc(sizeof(Node));
 
     p->data = c;
@@ -19,13 +19,13 @@ void push_stack(StackPtr s, char c){
     s->next = p;
 }
 //-----------------------------------------------------------------------------
-//弹栈
-char pop_stack(StackPtr s){
+char pop_stack(StackPtr s)
+{//弹栈
     Node *p = s->next;
 
     if(p == NULL)
     {
-        printf("Stack underflow! 栈下溢！！");
+        printf("Stack underflow: 栈下溢！！");
         exit(0);
     }
     char c = p->data;
@@ -35,15 +35,13 @@ char pop_stack(StackPtr s){
     return c;
 }
 //------------------------------------------------------------------------------
-//判空
 bool empty(StackPtr s)
-{
+{//判空
     return s->next == NULL;
 }
 //------------------------------------------------------------------------------
-//清除
 void clear(StackPtr s)
-{
+{//清除
     Node* p = s->next, *q;
 
     while (p != NULL)

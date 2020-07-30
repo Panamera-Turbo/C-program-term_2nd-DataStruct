@@ -5,9 +5,8 @@
 #include "stack.h"
 
 //------------------------------------------------------------------------------
-//判断括号是否匹配
 bool match(char *str)
-{
+{//判断括号是否匹配
     Stack s;
     char ch;
 
@@ -29,12 +28,14 @@ bool match(char *str)
             case ']':
                 ch = pop_stack(&s);
                 if (!( ch == '(' && *p == ')'
-                    ||  ch == '{' && *p == '}'
-                    ||  ch == '[' && *p == ']'))
+                    || ch == '{' && *p == '}'
+                    || ch == '[' && *p == ']'))
                 {
                     printf("Not match\n");
                     return false;
                 }
+            default:
+                continue;
         }
         ++p;
     }
@@ -43,11 +44,14 @@ bool match(char *str)
 
     clear(&s);
 
-    return true;
+    return false;
 }
-//==============================================================================
+//-----------------------------------------------------------------------------------
 int main(){
-    char *str = "({[[]]}){}";
+    char *str = "({[[]]}){";
+    char *str;
+    printf("输入由(、{、[、}、)、]组成的括号字符串:\n");
+    scanf("%s", str);
 
     if(match(str))
         printf("Match!匹配！");
