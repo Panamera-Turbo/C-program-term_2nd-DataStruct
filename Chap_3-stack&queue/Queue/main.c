@@ -3,9 +3,10 @@
 #include <time.h>
 
 #include "queue.h"
-
+//---------------------------------------------------------------------------------
 Queue q, *Q = &q;
 
+//---------------------------------------------------------------------------------
 void produce(Queue *Q)
 {
     int p;
@@ -21,6 +22,7 @@ void produce(Queue *Q)
     EnterQueue(Q, p);
 }
 
+//---------------------------------------------------------------------------------
 void consume(Queue *Q)
 {
     if (IsEmpty(Q))
@@ -34,6 +36,7 @@ void consume(Queue *Q)
     printf("Consumer consumed a product: %d\n", x);
 }
 
+//---------------------------------------------------------------------------------
 int main()
 {
     int i, p, threshold = 50;
@@ -57,6 +60,9 @@ int main()
     }
 
     DestroyQueue(Q);
+
+    if(IsEmpty(Q))
+        printf("\n\t队列已清空\n");
 
     return 0;
 }

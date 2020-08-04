@@ -1,5 +1,5 @@
 sources = *.c
-target = pv
+target = queue
 CC = gcc
 CCFLAG = -g -Wall -fsanitize=address
 
