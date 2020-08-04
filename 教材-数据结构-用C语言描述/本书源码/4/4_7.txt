@@ -1,0 +1,5 @@
+void StrClear(SString *s)
+/*½«´®sÖÃÎª¿Õ´®*/
+{
+	s->len=0;
+}

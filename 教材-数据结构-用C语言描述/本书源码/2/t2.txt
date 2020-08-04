@@ -1,0 +1,13 @@
+void  ReverseList(LinkList  L)
+{ 
+	Node *p,*q;
+	p=L->next;
+	L->next=NULL;
+	while(p!=NULL)
+	{ 
+		q=p->next;     /*q指针保留p->next得值*/
+		p->next=L->next;
+		L->next=p;    /*将p结点头插入到单链表L中*/
+		p=q;          /*p指向下一个要插入的结点*/
+	} 
+}

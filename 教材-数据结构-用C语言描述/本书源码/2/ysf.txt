@@ -1,0 +1,181 @@
+/*约瑟夫问题的一种描述是：编号为1，2，…，n的n个人按顺时针方向围坐一圈，每人持有一个密码（正整数）。一开始任选一个整数作为报数上限值m,从第一个人开始顺时针自1开始顺序报数，报到m时停止报数。报m的人出列，将他的密码作为新的m值，从他在顺时针方向上的下一个人开始重新从1报数，如此下去，直至所有的人全部出列为止。
+试设计一个程序，按照出列顺序打印出各人的编号。要求利用单向循环链表作为存储结构。*/
+
+/*下面给出两个实验用数据及其结果。
+初始密码m=20；
+游戏人数n=7；
+7个人的密码依次是：3，1，7，2，4，8，4；
+则出列的顺序为：6，1，4，7，2，3，5
+
+
+初始密码m=10；
+游戏人数n=8；
+8个人的密码依次是：7,9,5,4,1,2,6,3；
+则出列的顺序为：2,4,8,5,6,1,3,7
+*/
+
+/*源程序如下：其中的clinklist.c为循环单链表的结构及其一些基本操作*/
+
+#include <stdio.h>
+#include <conio.h>
+#include <stdlib.h>
+#include "clinklist.c"
+
+void game(CLinkList l)/*元素依次根据密码值出圈*/
+{
+	int m,k=0;
+	CLNode *p,*pre,*u;
+	p=l;
+	printf("\nCount Number m==? ");
+	scanf("%d",&m);
+	printf("\n%40s\n\n","GAME START");
+	while(p->next!=p)
+	{
+		pre=p;
+		p=p->next;
+		if(p==l) 
+		{ 
+			pre=p;
+			p=p->next;
+		}
+		k++;
+		if(k==m)
+		{ 
+			printf("%d ",p->i);
+			m=p->data;
+			pre->next=p->next;
+			u=p;
+			free(u);
+			p=pre;
+			k=0;
+		}
+	}
+	printf("\n\n%40s","GAME OVER");
+}
+
+void exitgame()
+{
+	printf("\n\n%40s","GOOD_BYE_GOOD !!");
+}
+
+
+void main()/*主控函数*/
+{
+	int select;
+	CLinkList list;
+	init_CLinkList(&list);
+	do
+	{
+		printf("%s%15s%15s%15s%15s","\n\n\n\n\n\n",
+			"1:Create",
+			"2:Display",
+			"3:Game",
+			"4:Exit");
+		printf("\n\n%33c",' ');
+		select=getche();
+		switch(select)
+		{
+		case '1': 
+			crt_CLinkList(list);
+			disp_CLinkList(list);
+			break;
+		case '2': 
+			disp_CLinkList(list);
+			break;
+		case '3': 
+			game(list);
+			break;
+		case '4': 
+			exitgame();
+			break;
+		default: 
+			printf("\nWrong select ! Try again. ");
+		}/*switch*/
+	}
+	while(select!='4');
+	release_CLinkList(list);
+	getch();
+}
+
+//////////////////////////////////
+/*clinklist.c的程序内容如下*/
+
+
+typedef int ElemType;
+typedef struct CLNode
+{
+	ElemType data;
+	ElemType i;
+	struct CLNode *next;
+} CLNode, *CLinkList;              /*循环单链表结构*/
+
+void init_CLinkList(CLinkList *l)/*对循环单链表进行初始化*/
+{
+	(*l)=(CLinkList)malloc(sizeof(struct CLNode));
+	(*l)->data=-1;
+	(*l)->i = 0;
+	(*l)->next=(*l);
+}
+
+void clear_CLinkList(CLinkList l)/*对循环单链表清空*/
+{
+	CLNode *p,*useless;
+	p=l->next;
+	l->next=l;
+	while(p!=l)
+	{
+		useless=p;
+		p=p->next;
+		free(useless);
+	}
+}
+
+void crt_CLinkList(CLinkList l)/*输入数据创建约瑟夫环表*/
+{
+	int num,n;
+	int j;
+	CLNode *p,*r;
+	clear_CLinkList(l);
+	r = l;
+	j = 1;
+	printf("\nInput the number of people:\n");
+	scanf("%d",&n);
+	
+	while(j <= n)
+	{
+		printf("Please input the %d people's password:",j);
+		scanf("%d",&num);
+		p=(CLNode *)malloc(sizeof(struct CLNode));
+		p->data=num;
+		p->i = j;
+		r->next=p;
+		r=p;		
+		j++;
+	}
+	r->next=l;
+}
+
+void disp_CLinkList(CLinkList l)/*显示表中元素内容*/
+{ 
+	int row=1;
+	CLNode *p;
+	p = l->next;
+	printf("\n");
+	while(p!=l)
+	{
+		if(row==7)
+		{
+			row=1;
+			printf("\n");
+		}
+		printf("%5d:%-5d|",p->i,p->data);
+		row++;
+		p=p->next;
+	}
+}
+
+void release_CLinkList(CLinkList l)/*销毁循环单链表（约瑟夫环）*/
+{
+	clear_CLinkList(l);
+	free(l);
+}

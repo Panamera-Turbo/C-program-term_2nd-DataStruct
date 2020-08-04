@@ -1,0 +1,33 @@
+Link *StrIndex(LKString *s, LKString *t)
+/*求子串t在主串s中第一次出现的位置指针*/
+{
+	Link *sp,*tp,*pre;	
+	if (t->len == 0) 
+		return NULL;/*子串是空串，则返回*/
+	
+	sp = s->head->next;/*主串第一个结点指针*/
+	tp = t->head->next;/*子串第一个结点指针*/
+	
+	pre = sp;/*记录当前串比较的起始位置指针*/
+	while(sp != NULL && tp != NULL)
+	{
+		if (sp->ch == tp->ch) {
+			/*若当前sp和tp的字符都相同，则继续比较*/
+			sp = sp->next;
+			tp = tp->next;
+		}
+		else
+		{
+			/*返回到串比较起始位置的下一个结点继续比较*/
+			sp = pre->next;
+			pre = sp;/*更新比较的起始位置*/
+			tp = t->head->next;/*子串第一个结点*/
+		}
+	}
+	if ( tp == NULL) {
+		/*匹配成功，返回位置指针*/
+		return pre;
+	}
+	else
+		return NULL;/*匹配不成功，返回空指针*/
+}

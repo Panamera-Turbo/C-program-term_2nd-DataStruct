@@ -1,0 +1,32 @@
+void BinAdd(LinkList l)
+/*单链表实现二进制数加1运算*/
+{
+	Node *q,*r,*temp,*s;
+	q=l->next;
+	r=l;
+	while(q!=NULL)       /*查找最后一个值域为0的结点*/
+	{
+		if(q->data == 0)
+			r = q;
+		q = q->next;
+	}
+	if(r != l)
+	{
+		r->data = 1;           /*将最后一个值域为0的结点的值域赋为1*/
+	}
+	else                         /*未找到值域为0的结点*/
+	{	
+		temp = r->next;
+		s=(Node*)malloc(sizeof(Node));         /*申请新结点*/
+		s->data=1;                             /*值域赋为1*/
+		s->next=temp;
+		r->next = s;                           /*插入到头结点之后*/
+		r = s;
+	}
+	r = r->next;
+	while(r!=NULL)                              /*将后面的所有结点的值域赋为0*/
+	{
+		r->data = 0;
+		r = r->next;
+	}
+}

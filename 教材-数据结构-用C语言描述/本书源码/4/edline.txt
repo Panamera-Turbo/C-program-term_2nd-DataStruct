@@ -1,0 +1,243 @@
+#include "stdio.h"
+#include <stdlib.h>
+#include <string.h>
+
+/*定义块链结构，每行作为一个结点，有80个字符*/
+typedef struct BLOCK {
+  char ch[80];
+  struct BLOCK *next;
+  }Node,*LinkString; 
+LinkString L;
+
+
+void getnum(char sel[],int *n1,int *n2,int line)
+{/*将存放在sel中的字符串分解出n1和n2*/
+int i,k1,k2,flag=0;
+
+k1=0;k2=0;i=1;
+while(sel[i]!='\0')
+   if (sel[i]>='0'&&sel[i]<='9')
+   {
+	   k1=k1*10+(sel[i]-'0');
+	   flag=1;
+	   i++;
+   }
+   else 
+	   if (sel[i]==',') 
+	   {
+		   flag=2;
+		   i++;
+		   break;
+	   };
+//printf("哈哈");
+while(sel[i]!='\0') {
+   if (sel[i]>='0'&&sel[i]<='9')
+     {k2=k2*10+(sel[i]-'0');i++;}
+   else break;
+   };
+switch (sel[0]) {
+  case 'L':
+  case 'l':
+  case 'D':
+  case 'd':
+       if (k1==0) *n1=line;
+       else *n1=k1;
+       if (k2==0) *n2=*n1+10;
+       else *n2=k2;
+       if (flag==1) *n2=*n1;
+       if (flag==0) {
+	   *n1=line;*n2=line+10;
+	   }
+       break;
+  case 'I':
+  case 'i':
+  case 'E':
+  case 'e':
+       if (k1==0) *n1=line;
+       else *n1=k1;
+       break;
+  }
+}
+
+void loadfile(char filename[])
+/*从磁盘读取指定的文件并存放在块链表中*/
+{
+FILE *fp;
+int i;
+char c;
+LinkString p,q;
+
+fp=fopen(filename,"r");
+if (fp==NULL)   exit(0);
+
+i=0;p=L;
+q=(LinkString)malloc(sizeof(Node));
+
+while((c=getc(fp))!=EOF) {
+  q->ch[i++]=c;
+  if (c==10) {
+    q->ch[i]='\0';
+    q->next=NULL;
+    p->next=q;p=q;
+    q=(LinkString)malloc(sizeof(Node));
+    i=0;
+    }
+  }
+}
+void savefile(char filename[])
+/*将存放在块链表中的字符存放到磁盘文件filename中*/
+{
+FILE *fp;
+//int i,j;
+//char c;
+LinkString p;
+
+fp=fopen(filename,"w");
+if (fp==NULL)   exit(0);
+
+p=L->next;
+
+while(p) {
+  fprintf(fp,"%s",p->ch);
+  p=p->next;
+  }
+fclose(fp);
+}
+
+int display(int n1,int n2)
+/*在屏幕上显示文件中第n1行到第n2行的内容*/
+{
+LinkString p,q,s;
+int i,k;
+
+if (n1>n2) return(0);
+
+p=L->next;i=0;
+while (p!=NULL&&i<n1) {
+    p=p->next;i++;
+    }
+if (!p) return(0);
+q=p->next;
+while (q!=NULL&&i<n2) {
+    q=q->next;i++;
+    }
+s=p;i=n1;
+while (s!=q) {
+  k=0;printf("%2d:",i);
+  while (s->ch[k]!='\0') {printf("%c",s->ch[k]);k++;}
+  s=s->next;
+  i++;
+  }
+return(1);
+}
+
+int deletechar(int n1,int n2)
+/*删除文件中第n1行到第n2行的内容*/
+{
+LinkString p,q,s;
+int i;
+if (n1>n2) return(0);
+
+p=L;i=0;
+while (p!=NULL&&i<n1) {
+    p=p->next;i++;
+    }
+if (!p) return(0);
+q=p->next;
+while (q!=NULL&&i<=n2) {
+    q=q->next;i++;
+    }
+s=p->next;p->next=q;
+while (s!=q) {
+  p=s->next;free(s);
+  s=p;
+  }
+return(1);
+}
+
+int edit(int  n1)
+/*修改文件中第n1行的内容*/
+{
+LinkString p;
+int i,k;
+char str[80];
+
+p=L->next;i=0;
+while (p!=NULL&&i<n1) {
+    p=p->next;i++;
+    }
+if (!p) return(0);
+printf("Old Line(%d):",n1);
+for (k=0;p->ch[k]!='\0';k++) printf("%c",p->ch[k]);
+printf("New Line(%d):",n1);gets(str);
+for(k=0;str[k]!='\0';k++)
+  p->ch[k]=str[k];
+p->ch[k++]=10;
+p->ch[k]='\0';
+
+return(1);
+}
+
+int insert(int n1)
+/*在文件中第n1行之前插入一行*/
+{
+LinkString p,s;
+int i,k;
+char str[80];
+
+p=L;i=0;
+while (p!=NULL&&i<n1) {
+    p=p->next;i++;
+    }
+if (!p) return(0);
+s=(LinkString) malloc(sizeof(Node));
+printf("New Line(%d):",n1);gets(str);
+for(k=0;str[k]!='\0';k++)
+  s->ch[k]=str[k];
+s->ch[k++]=10;
+s->ch[k]='\0';
+s->next=p->next;
+p->next=s;
+
+return(1);
+}
+
+void main(int argc,char *argv[])
+{
+	char sel[50],string[80];
+	int n1,n2,cur_line=0,flag=0;
+	L=(LinkString)malloc(sizeof(Node));
+	L->next=NULL;/*生成头结点*/
+//	strcpy(string,argv[1]);
+	/*打开文件*/
+	if (argc>=2) loadfile(string);
+	else {
+		printf("Input FileName:");
+		scanf("%s",string);
+		getchar();
+		loadfile(string);
+	}
+	/*从键盘接受一个字符串，转换为命令和参数*/
+	while (1) {
+		printf(">>");
+		/*gets(sel);*/
+		fflush(stdin);
+		scanf("%s",sel);
+		getnum(sel,&n1,&n2,cur_line);/*将接受的字符串转换为参数n1,n2*/
+		switch(sel[0]) {/*分别调用函数完成相应功能*/
+		case 'S':
+		case 's':   flag=1;savefile(string);break;
+		case 'Q':
+		case 'q':	flag=1;break;
+		case 'L':
+		case 'l':	display(n1,n2);break;
+		case 'D':
+		case 'd':	 deletechar(n1,n2);display(0,10);break;
+		case 'I':
+		case 'i':	 insert(n1);break;
+		case 'E':
+		case 'e':	 edit(n1);break;
+		}
+		if (flag) break;
+	}
+}

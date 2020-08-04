@@ -1,0 +1,106 @@
+
+typedef int status;
+typedef char ElemType;
+typedef struct Node
+{
+	ElemType data;
+	struct Node* next;
+}Node,*LinkList;
+
+void init_linklist(LinkList *l)/*对单链表进行初始化*/
+{
+	*l=(LinkList)malloc(sizeof(Node)); 
+	(*l)->next=NULL;
+}
+
+void CreateList(LinkList L)
+{
+	Node *r,*s;
+	int flag=1;
+	char c;
+	r = L;
+    printf("\nplease input the value of the list element:");
+	while(flag)
+	{
+		c=getchar();
+		if(c!='$')
+		{
+			s=(Node*)malloc(sizeof(Node));
+			if(!s) exit(OVERFLOW);
+			s->data=c;
+			r->next=s;
+			r=s;
+		}
+		else 
+		{ 
+			flag=0;
+			r->next=NULL;
+		}
+	}/*end of while*/
+}/*end of CreateList*/
+
+status InsList (LinkList L,int i,ElemType e)
+{ 
+	Node *pre,*s;
+	int k;
+	pre=L;
+	k=0;
+	while(pre&&k<i-1)
+	{pre=pre->next;
+	k++;
+	}
+	if(!pre)
+	{
+		printf("The position of insert is invalid!");
+		return (ERROR);
+	}
+	s=(Node*)malloc(sizeof(Node));
+	if(!s) exit(OVERFLOW);
+	s->data=e;
+	s->next=pre->next;
+	pre->next=s;
+	return (OK);
+} /*end of InsList*/
+
+status DelList(LinkList L,int i,ElemType *e)
+{
+	Node *pre,*r;
+	int k;
+	pre=L;
+	k=0;
+	while(pre->next!=NULL&&k<i-1)
+	{
+		pre=pre->next;
+		k++;
+	}/*end of while*/
+	if(!(pre->next))
+	{
+		printf("the position of delete is invalid!!\n");
+		return(ERROR);
+	}/*end of if*/
+	r=pre->next;
+	pre->next=pre->next->next;
+	*e=r->data;
+	free(r);
+	return(OK);
+}/*end of DelList*/
+
+status OutputValue(LinkList l)
+{
+	LinkList p;
+	p=l->next;
+	if(!p) 
+	{
+		printf("the list is empty!!\n");
+		return ERROR;
+	}
+	printf("\nthe value of the list is:");
+	while(p)
+	{
+		printf("%c  ",p->data);
+		p=p->next;
+	}
+        printf("\n");
+	return OK;
+}
+
