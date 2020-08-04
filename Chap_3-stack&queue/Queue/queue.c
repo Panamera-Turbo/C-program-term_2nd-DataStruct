@@ -55,7 +55,7 @@ bool IsFull(Queue *Q)
 //---------------------------------------------------------------------------------
 void DestroyQueue(Queue *Q)
 {
-	for(int i = Q->front; (i%MAXSIZE) < Q->rear; ++i)
+	for(int i = Q->front; (i%MAXSIZE) != Q->rear; ++i)
 		Q->element[i] = 0;
 	
 	Q->front = Q->rear = 0;
