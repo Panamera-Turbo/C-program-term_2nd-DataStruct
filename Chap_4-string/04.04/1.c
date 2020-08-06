@@ -108,12 +108,3 @@ int main(){
     printf("%s\n", out);
 return 0;
 }
-/*
-串为“aaabbbccc”(长度为9)，需要将子串“b”替换为“123”，out 所占空间为 14
-str_replace 函数返回值应该“3”，但现在是“2”，请修改。
-str_replace 函数所得到的子串从第“9”处应该是“123c”，但现在是“bccc”，请修改。
-
-串为“aaabbbccc”(长度为9)，需要将子串“cc”替换为“1234567”，out 所占空间为 14
-str_replace 函数返回串的长度超过最大值 14，请修改
-
-*/
