@@ -2,19 +2,19 @@
 #include <malloc.h>
 
 #include "string.h"
-
+//---------------------------------------------------------------
 bool StrEmpty(String *s)
-{
+{//判空
     return s->len == 0;
 }
-
+//---------------------------------------------------------------
 int StrLength(String *s)
-{
+{//求长度
     return s->len;
 }
-
+//---------------------------------------------------------------
 void StrClear(String *s)
-{
+{//清空
     blockptr p, q;
 
     if (s == NULL) 
@@ -31,15 +31,15 @@ void StrClear(String *s)
     s->len = 0;
 }
 
-
+//---------------------------------------------------------------
 void StrDestroy(String *s)
 {
     StrClear(s);
 }
 
-
+//---------------------------------------------------------------
 int StrSet(String *s, char *t)
-{
+{//*t写入串s
     blockptr p;
     int i;
 
@@ -52,17 +52,18 @@ int StrSet(String *s, char *t)
     while (*t)
     {
         p = (blockptr)malloc(sizeof(block));
-        p->next = NULL;
-        for (i = 0; i < BLOCK_SIZE && *t != '\0'; ++i, ++t)
+        p->next = NULL;                                     //分配空间
+
+        for (i = 0; i < BLOCK_SIZE && *t != '\0'; ++i, ++t) //小于块的大小时，填充    
             p->ch[i] = *t;
 
-        for (; i < BLOCK_SIZE; ++i)
+        for (; i < BLOCK_SIZE; ++i)                         //如果t已经结束而块还有空位，用#占位
             p->ch[i] = '#';
 
-        if (s->tail == NULL)
+        if (s->tail == NULL)                                //第一个填入的块
             s->head = p;
         else
-            s->tail->next = p;
+            s->tail->next = p;                              //以后填入的块
         s->tail = p;
 
         ++s->len;
@@ -70,7 +71,7 @@ int StrSet(String *s, char *t)
 
     return s->len;
 }
-
+//---------------------------------------------------------------
 int StrPrint(String *s)
 {
     blockptr p;
