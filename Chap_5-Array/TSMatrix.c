@@ -4,7 +4,7 @@
 
 //------------------------------------------------------------------------------------
 //转置矩阵
-void TransposeTSMatrix(TSMatrix *from, TSMatrix *to)
+void Transpose_TSMatrix(TSMatrix *from, TSMatrix *to)
 {
     int i, j, k;
 
@@ -23,7 +23,7 @@ void TransposeTSMatrix(TSMatrix *from, TSMatrix *to)
 }
 //------------------------------------------------------------------------------------
 //快速转置
-void FastTransposeTSMatrix(TSMatrix *from, TSMatrix *to)
+void Fast_Transpose_TSMatrix(TSMatrix *from, TSMatrix *to)
 {
     /*基于矩阵的三元组表示，采用"按位快速转置"法，将矩阵A转置为矩阵B*/
     int col, t, p, q;
@@ -33,27 +33,29 @@ void FastTransposeTSMatrix(TSMatrix *from, TSMatrix *to)
     to->m = from->n;
     if (to->len)
     {
-        for (col = 1; col <= from->n; col++)
-            num[col] = 0;
+        memset(num, 0, MAXSIZE*sizeof(int));
+
         for (t = 1; t <= from->len; t++)
             num[from->data[t].col]++; /*计算每一列的非零元素的个数*/
+
         position[1] = 1;
+
         for (col = 2; col <= from->n; col++) /*求col列中第一个非零元素在B.data[ ]中的正确位置*/
             position[col] = position[col - 1] + num[col - 1];
+
         for (p = 1; p <= from->len; p++) /*将被转置矩阵的三元组表A从头至尾扫描一次，实现矩阵转置*/
         {
             col = from->data[p].col;
             q = position[col];
             to->data[q] = from->data[p];
             position[col]++; /* position[col]加1，指向下一个列号为col的非零元素在三元组表B中的下标值*/
-        }                    /*end of for*/
+        }//end for
     }
 }
 
 
 //------------------------------------------------------------------------------------
-//
-void ShowTSMatrix(TSMatrix *M, const char *msg)
+void Show_Matrix_Triple(TSMatrix *M, const char *msg)
 {
     printf("%s\n", msg);
     for (int i = 1; i <= M->len; ++i)
@@ -63,7 +65,7 @@ void ShowTSMatrix(TSMatrix *M, const char *msg)
 
 //------------------------------------------------------------------------------------
 //
-void PrintfTSMatrix(TSMatrix *M, const char *msg)
+void Printf_TSMatrix(TSMatrix *M, const char *msg)
 {
     int i, j, k = 1;
     Triple *t;

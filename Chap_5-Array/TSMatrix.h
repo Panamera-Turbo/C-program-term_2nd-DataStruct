@@ -1,6 +1,7 @@
 #pragma once
 
 #include <stdbool.h>
+#include <string.h>
 
 #define MAXSIZE 50  /*非零元素的个数最多为1000*/
 #define ElementType int
@@ -18,7 +19,7 @@ typedef struct
 	Triple data[MAXSIZE+1];   /* 非零元素的三元组表。data[0]未用*/
 } TSMatrix;
 
-extern void TransposeTSMatrix(TSMatrix *from, TSMatrix *to);
-extern void FastTransposeTSMatrix(TSMatrix *from, TSMatrix *to);
-extern void ShowTSMatrix(TSMatrix *M, const char *msg);
-extern void PrintfTSMatrix(TSMatrix *M, const char *msg);
+extern void Transpose_TSMatrix(TSMatrix *from, TSMatrix *to);
+extern void Fast_Transpose_TSMatrix(TSMatrix *from, TSMatrix *to);
+extern void Show_Matrix_Triple(TSMatrix *M, const char *msg);
+extern void Printf_TSMatrix(TSMatrix *M, const char *msg);

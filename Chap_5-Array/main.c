@@ -19,14 +19,15 @@ int main()
         }
     },
     B;
+    Printf_TSMatrix(&A, "Matrix:");
+    puts("\nwriting into a triple, it is:\n");
+    Show_Matrix_Triple(&A, "The original matrix is:");
 
-    ShowTSMatrix(&A, "The original matrix is:");
+    Transpose_TSMatrix(&A, &B);
+    Show_Matrix_Triple(&B, "Transposed:");
 
-    TransposeTSMatrix(&A, &B);
-    ShowTSMatrix(&B, "Transposed:");
-
-    // FastTransposeTSMatrix(&A, &B);
-    // ShowTSMatrix(&B, "Fast transposed:");
+    Fast_Transpose_TSMatrix(&A, &B);
+    Show_Matrix_Triple(&B, "Fast_ transposed:");
 
     return 0;
 }
