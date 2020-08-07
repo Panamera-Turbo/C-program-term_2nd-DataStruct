@@ -10,22 +10,22 @@ typedef int ElemType;
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "crosslist.h"
-// #define ElemType int
+// #include "crosslist.h"
+#define ElemType int
 
-// typedef struct OLNode
-// {
-//     int row,col;
-//     ElemType value;
-//     struct OLNode *right,*down;
-// }OLNode,*OLink;
+typedef struct OLNode
+{
+    int row,col;
+    ElemType value;
+    struct OLNode *right,*down;
+}OLNode,*OLink;
 
-// // 十字链表结构
-// typedef struct
-// {
-//     OLink *rowhead,*colhead;
-//     int rows,cols,nums;
-// }CrossList, *PCrossList;
+// 十字链表结构
+typedef struct
+{
+    OLink *rowhead,*colhead;
+    int rows,cols,nums;
+}CrossList, *PCrossList;
 /*
 1）实现十字链表的初始化操作：
     int init_cross_list(PCrossList L, const ElemType *A, int m, int n)
