@@ -64,7 +64,7 @@ void PreOrder_If(BiTree root, CALLBACK visit, PREDICATE pred)
 }
 //---------------------------------------------------------------------------------------------------------
 static BiTree _Create(char *pre, char *in)
-{
+{//利用字符串生成树
     BiTNode *root;
     int j;
     
@@ -73,8 +73,8 @@ static BiTree _Create(char *pre, char *in)
     for (j = 0; in[j] != *pre; ++j); //找到本次处理的根节点在中序遍历里的位置
     in[j++] = '\0';                  //在这位置将中序序列分成两部分：左子树和右子树
 
-    root = (BiTNode *)malloc(sizeof(BiTNode)); //生成本次的根节点并填充数据
-    root->data = * pre;
+    root = (BiTNode*)malloc(sizeof(BiTNode)); //生成本次的根节点并填充数据
+    root->data = *pre;
     root->LChild = _Create(pre + 1, in);     //递归生成左子树
     root->RChild = _Create(pre + j, in + j); //递归生成右子树
 
