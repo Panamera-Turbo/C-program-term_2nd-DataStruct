@@ -80,9 +80,9 @@ static BiTree _Create(char *pre, char *in)
 
     return root; 
 }
-//
+//-----------------------------------------------------------------------------------------------------------
 BiTree CreateBiTreeByPreIn(char *pre, char *in)
-{
+{//前序创建
     char *t;
     BiTree root;
 
