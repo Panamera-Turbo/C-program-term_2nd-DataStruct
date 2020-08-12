@@ -75,6 +75,8 @@ bool path(BiTNode *root, BiTNode *node, Stack *s)
 }
 
 /*
+/********the following is mine. I don't know where is wrong**********
+
 bool path(BiTNode *root, BiTNode *node, Stack *s)
 {
     BiTNode*p;
