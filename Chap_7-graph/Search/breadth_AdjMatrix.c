@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 #include "../common/queue.h"
-#include "search.h"
+#include "search.h" //这里可能会报错，不必理会。../GRAPH/graph.h中的GRAPH会在mk命令中被替换
 //----------------------------------------------------------------------------------------------------------------
 void Search(Graph *g, int v0, CALLBACK visit)
 {

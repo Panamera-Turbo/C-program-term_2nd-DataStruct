@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "search.h"
+#include "search.h"   //这里会报错，不必理会。../GRAPH/graph.h中的GRAPH会在mk命令中被替换
 
 #define NONRECURSIVE  //定义是否递归，作为下面的选择编译的条件
 
