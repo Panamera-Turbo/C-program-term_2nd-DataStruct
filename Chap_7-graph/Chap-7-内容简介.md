@@ -7,7 +7,7 @@
 - CriticalPath--
 - Kruskal--克鲁斯卡尔算法寻找
 - OnePath--
-- OrthList--
+- OrthList--十字链表
 - Prim--普莱姆算法寻找
 - Search--
 - ShortestPath--最短路径
