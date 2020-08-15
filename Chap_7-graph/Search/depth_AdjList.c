@@ -26,7 +26,7 @@ void Search(Graph *g, int v0, CALLBACK visit)
 
 #else
 //------------------------------------------------------------------------------------------------------------------------
-/*广度优先搜索图g中v0所在的连通子图*/
+/*非递归深度优先搜索图g中v0所在的连通子图*/
 void Search(Graph *g, int v0, CALLBACK visit) 
 {
     Stack s, *S = &s;
@@ -43,14 +43,16 @@ void Search(Graph *g, int v0, CALLBACK visit)
         {
             visit(g->vertex[v].data);
             visited[v] = true;
-        }
-        p = g->vertex[v].firstarc;      //找v的第一条弧
-        while (p != NULL)
-        {
-            w = p->adjvex;              //w是p的节点编号（节点信息）
-            if (!visited[w])            //没有访问则入栈
-                Push(S, w);
-            p = p->nextarc;             //继续判断v的其他对应节点
+        
+            p = g->vertex[v].firstarc;      //找v的第一条弧
+            
+            while (p != NULL)
+            {
+                w = p->adjvex;              //w是p的节点编号（节点信息）
+                if (!visited[w]) Push(S, w);//没有访问则入栈
+
+                p = p->nextarc;             //继续判断v的其他对应节点
+            }
         }
     }
 
