@@ -2,7 +2,7 @@
 #include <malloc.h>
 
 #include "graph.h"
-
+//------------------------------------------------------------------------------------
 AdjType LocateVertex(OrthList *G, VertexData v) /*求顶点位置函数*/
 {
     for (int k = 0; k < G->vexnum; k++)
@@ -11,10 +11,9 @@ AdjType LocateVertex(OrthList *G, VertexData v) /*求顶点位置函数*/
 
     return -1;
 }
-
+//------------------------------------------------------------------------------------
 void CreateGraph(Graph *G)
-/*从终端输入n个顶点的信息和e条弧的信息，以建立一个有向图的十字链表*/
-{
+{/*从终端输入n个顶点的信息和e条弧的信息，以建立一个有向图的十字链表*/
     int n, e;
     int i, j, k;
     int kind, w;
@@ -57,7 +56,7 @@ void CreateGraph(Graph *G)
         G->vertex[j].firstin = p;
     }
 } /* CrtOrthList */
-
+//------------------------------------------------------------------------------------
 void DestroyGraph(Graph *G)
 {
     ArcNode *p, *q;
@@ -73,7 +72,7 @@ void DestroyGraph(Graph *G)
         }
     }
 }
-
+//------------------------------------------------------------------------------------
 void DrawGraph(Graph *G)
 {
     ArcNode *p;
