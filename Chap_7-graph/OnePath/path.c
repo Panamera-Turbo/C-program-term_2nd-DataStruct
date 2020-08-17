@@ -2,7 +2,7 @@
 #include <stdbool.h>
 #include <malloc.h>
 
-#include "../GRAPH_PATH/graph.h"
+#include "../GRAPH_PATH/graph.h" 
 
 /***********************************************************
  * bug:
@@ -21,24 +21,20 @@ Arc FirstAdjVertex(struct Graph *G, AdjType v)
         w.adj = -1;
     return w;
 }
-
 //----------------------------------------------------------------------------------------------------------
 Arc NextAdjVertex(struct Graph *G, AdjType v, Arc w)
 {//顶点v的第一个邻接点，v的下一个邻接点
     Arc w2;
-    
     if (w.arc == NULL)
     {
         w2.adj = -1;
         w2.arc = NULL;
     }
-
     else
     {
         w2.adj = w.arc->adjvex;
         w2.arc = w.arc->nextarc;
     }
-
     return w2;
 }
 //-----------------------------------------------------------------------------------------------------------------
