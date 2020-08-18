@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-
+#include <string.h>
 #include "../common/stack.h"
 #include "../AdjList/graph.h"
 /***********************************************************************************************************************
@@ -60,9 +60,7 @@ void FindID(AdjList *G, int indegree[])
 {/*求各顶点的入度*/
     int i;
     ArcNode *p;
-
-    for (i = 0; i < G->vexnum; ++i) //所有节点初始入读为0
-        indegree[i] = 0;
+    memset(indegree, 0, G->vexnum*sizeof(int));
 
     for (i = 0; i < G->vexnum; ++i) //每个节点计算
     {
@@ -74,7 +72,6 @@ void FindID(AdjList *G, int indegree[])
         }
     }//end for
 }
-
 //-------------------------------------------------------------------------------------------------------------------------
 bool TopoOrder(AdjList *G, Stack *T)
 {/* G为有向网(邻接表存储)，T为返回拓扑序列的栈，S为存放入度为0的顶点的栈*/
@@ -174,7 +171,7 @@ bool CriticalPath(AdjList *G)
             ei = ve[j];
             li = vl[k] - dut;
             tag = (ei == li) ? '*' : ' ';   //ei = li 代表关键活动，打上标签*
-            printf("%s,%s,%d,%d,%d,%c\n", 
+            printf("%s--%s,%2d,%2d,%2d, %c\n", 
                     Vertex2Name(G->vertex[j].data), Vertex2Name(G->vertex[k].data), dut, ei, li, tag); /*输出关键活动*/
             p = p->nextarc;
         } //end while
