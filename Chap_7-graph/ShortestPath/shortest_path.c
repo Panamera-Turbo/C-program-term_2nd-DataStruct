@@ -32,7 +32,7 @@ void ShortestPath_DJS(AdjMatrix *G, int v0, WeightType dist[], VertexSet path[])
     int i, t, k, min;
     VertexSet s, *S = &s; /*  s为已找到最短路径的终点集合 */
 
-    for (i = 0; i < G->vexnum; i++) /* 初始化dist[i]和path [i]  */
+    for (i = 0; i < G->vexnum; i++) /* 初始化dist[i]和path[i]  */
     {
         InitList(&path[i]);     //初始化每个路径
         dist[i] = G->arcs[v0][i].adjvex;
@@ -57,9 +57,13 @@ void ShortestPath_DJS(AdjMatrix *G, int v0, WeightType dist[], VertexSet path[])
                 k = i;
                 min = dist[i];
             }
+
         AddTail(S, G->vertex[k].data);
+
         for (i = 0; i < G->vexnum; i++) /*修正dist[i],  i∈V-S*/
-            if (!Member(G->vertex[i].data, S) && G->arcs[k][i].adjvex != INFINITY && (dist[k] + G->arcs[k][i].adjvex < dist[i]))
+            if (!Member(G->vertex[i].data, S) 
+                && G->arcs[k][i].adjvex != INFINITY 
+                && (dist[k] + G->arcs[k][i].adjvex < dist[i]))
             {
                 dist[i] = dist[k] + G->arcs[k][i].adjvex;
                 path[i] = path[k];
@@ -73,7 +77,7 @@ static char *Vertex2Name(VertexData d)
 {
     return vertex_map[d - 'A'];
 }
-
+//-------------------------------------------------------------------------------------------------------
 void PrintDJS(int n, int l, VertexSet path[], char *msg)
 {
     VertexSet *S;
@@ -97,6 +101,7 @@ void PrintDJS(int n, int l, VertexSet path[], char *msg)
     }
     putchar('\n');
 }
+//---------------------------------------------------------------------------------------------------------------------------------
 /******************************************************************************************
  * 弗洛伊德算法：
  * 从任意顶点到其他顶点的最短路径
@@ -105,8 +110,7 @@ void PrintDJS(int n, int l, VertexSet path[], char *msg)
 void ShortestPath_Floyd(AdjMatrix *G,
                         WeightType dist[][MAX_VERTEX_NUM],
                         VertexSet path[][MAX_VERTEX_NUM])
-/* g为带权有向图的邻接矩阵表示法， path [i][j]为vi到vj的当前最短路径，dist[i][j]为vi到vj的当前最短路径长度*/
-{
+{//g为带权有向图的邻接矩阵表示法， path[i][j]为vi到vj的当前最短路径，dist[i][j]为vi到vj的当前最短路径长度*/
     int i, j, k;
     for (i = 0; i < G->vexnum; i++)
         for (j = 0; j < G->vexnum; j++)
@@ -125,11 +129,10 @@ void ShortestPath_Floyd(AdjMatrix *G,
                 if (dist[i][k] + dist[k][j] < dist[i][j])
                 {
                     dist[i][j] = dist[i][k] + dist[k][j];
-                    //path[i][j] = JoinList(path[i][k], path[k][j]);
-                    JoinList(&path[i][k], &path[k][j], &path[i][j]);
-                } /*JoinList为合并线性表操作*/
+                    JoinList(&path[i][k], &path[k][j], &path[i][j]); //JoinList为合并线性表操作
+                } 
 }
-
+//-------------------------------------------------------------------------------------------------------
 void PrintFloyd(int n, VertexSet path[][MAX_VERTEX_NUM])
 {
     char msg[100];
@@ -141,10 +144,10 @@ void PrintFloyd(int n, VertexSet path[][MAX_VERTEX_NUM])
         putchar('\n');
     }
 }
-
+//-------------------------------------------------------------------------------------------------------
 WeightType dist[MAX_VERTEX_NUM], dist2[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
 VertexSet path[MAX_VERTEX_NUM], path2[MAX_VERTEX_NUM][MAX_VERTEX_NUM];
-
+//-------------------------------------------------------------------------------------------------------
 int main(int argc, char *argv[])
 {
     char *datafile = argc > 1 ? argv[1] : "shortest_path.in";
