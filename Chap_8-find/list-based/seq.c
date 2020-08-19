@@ -32,7 +32,6 @@ int SeqSearch(RecordList l, KeyType k)
 }
 #endif
 //---------------------------------------------------------------------------------------------------
-
 void CreateFromFile(RecordList *l)
 {
     FILE *fp;
@@ -47,12 +46,10 @@ void CreateFromFile(RecordList *l)
     fread(l->r, size, len + 1, fp);     //读进l->r
     fclose(fp);
 }
-
 void Destroy(RecordList *l)
 {
     free(l->r);
 }
-
 void Found(int i, KeyType key)
 {
     if (i != -1)
