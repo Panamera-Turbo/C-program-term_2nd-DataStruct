@@ -1,9 +1,9 @@
 #include <stdio.h>
 
 #define N   10
-
+//-----------------------------------------------------------------------
 int sfind(int a[], int len, int key)
-{
+{//顺序查找
     for (int *p = a; p != &a[len]; ++p)
         if (*p == key) return p - a;
     // for (int i = 0; i < len; ++i)
@@ -11,9 +11,9 @@ int sfind(int a[], int len, int key)
 
     return -1;
 }
-
+//------------------------------------------------------------------------
 int bfind(int a[], int len, int key)
-{
+{//折半查找
     int l, h, m;
 
     l = 0;
@@ -28,7 +28,7 @@ int bfind(int a[], int len, int key)
 
     return -1;
 }
-
+//--------------------------------------------------------------------------
 int main()
 {
     int x[N] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
