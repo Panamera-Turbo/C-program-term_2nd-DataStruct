@@ -4,13 +4,12 @@
 
 #include "bstree.h"
 
-#define RECURSIVE_
+#define RECURSIVE   //是否递归
 
 #ifdef RECURSIVE
-
+//-------------------------------------------------------------------------------------------------------
 BSTree BSTSearch(BSTree bst, KeyType key)
-/*在根指针bst所指二叉排序树中，递归查找某关键字等于key的元素，若查找成功，返回指向该元素结点指针，否则返回空指针*/
-{
+{/*在根指针bst所指二叉排序树中，递归查找某关键字等于key的元素，若查找成功，返回指向该元素结点指针，否则返回空指针*/
     if (bst == NULL)
         return NULL;
 
@@ -23,7 +22,7 @@ BSTree BSTSearch(BSTree bst, KeyType key)
 }
 
 #else
-
+//-------------------------------------------------------------------------------------------------------
 BSTree BSTSearch(BSTree bst, KeyType key)
 /*在根指针bst所指二叉排序树bst上，查找关键字等于key的结点，若查找成功，返回指向该元素结点指针，否则返回空指针*/
 {
@@ -40,11 +39,10 @@ BSTree BSTSearch(BSTree bst, KeyType key)
     }
     return NULL; /*查找失败*/
 } /*SearchBST*/
-
 #endif
 
 #ifndef AVLTREE
-
+//-------------------------------------------------------------------------------------------------------
 static void InsertTree(BSTree *bst, KeyType key)
 /*若在二叉排序树中不存在关键字等于key的元素，插入该元素*/
 {
@@ -62,7 +60,7 @@ static void InsertTree(BSTree *bst, KeyType key)
 }
 
 #else
-
+//-------------------------------------------------------------------------------------------------------
 static void InsertTree(AVLTree *avlt, KeyType K)
 /*在平衡二叉树中插入元素k，使之成为一棵新的平衡二叉排序树*/
 {

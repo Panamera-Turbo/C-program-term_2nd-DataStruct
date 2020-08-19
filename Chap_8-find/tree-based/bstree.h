@@ -2,7 +2,7 @@
 
 #include "../recordtype.h"
 
-#define AVLTREE__
+#define AVLTREE	//定义是否设置为AVL树
 
 typedef struct node
 {

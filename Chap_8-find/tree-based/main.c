@@ -17,7 +17,7 @@ void test_search(KeyType key)
 
 int main()
 {
-    KeyType key = 31018;
+    KeyType key = 30180;
 
     test_search(key);
    
