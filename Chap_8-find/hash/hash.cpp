@@ -6,7 +6,6 @@
 #include "hash.h"
 /************************************************************************
  * hash哈希排序：
- * 
  * *********************************************************************/
 
 static const double loadfactor = 0.7; //装填因子建议在0.7~0.8之间
@@ -16,10 +15,9 @@ static inline int hash(KeyType k)
 {
     return k % P;
 }
-
-//找到键值在hash表中的下标
+//------------------------------------------------------------------------
 int HashSearch(HashTable ht, KeyType K)
-{
+{//找到键值在hash表中的下标
     int h0 = hash(K), hi, i;
 
     if (ht[h0].key == NULLKEY)  //这个值不在hash表里
@@ -40,14 +38,12 @@ int HashSearch(HashTable ht, KeyType K)
         return -1;  
     }
 }
-
-//找到一个可以容纳键值K的空单元（.key == NULLKEY）
+//------------------------------------------------------------------------
 static int FindRoom(HashTable ht, KeyType K)
-{
-    //TODO
+{//找到一个可以容纳键值K的空单元（.key == NULLKEY）
     int h0 = hash(K), hi, i;
 
-    if (ht[h0].key == NULLKEY)  //这个值不爱hash表，空间可以拿来存储
+    if (ht[h0].key == NULLKEY)  //这个值不在hash表，空间可以拿来存储
         return h0;
     else /* 用线性探测再散列解决冲突 */
     {
@@ -62,7 +58,7 @@ static int FindRoom(HashTable ht, KeyType K)
 
     return -1;  //实际上不会被执行，只是为了避免报错
 }
-
+//------------------------------------------------------------------------
 static bool isPrime(int n)
 {//判断n是否素数
     for (int i = 2; i <= sqrt(n); ++i)
@@ -71,19 +67,18 @@ static bool isPrime(int n)
 
     return true;
 }
-
+//------------------------------------------------------------------------
 //找到第一个小于等于预估hash表长度的素数p
 //tablelen是预估长度，由Key的个数和装填因子确定
 static int FindP(int tablelen)
 {
-    //TODO
     for (int n = tablelen; n >= 2; --n)
         if (isPrime(n))
             return n;
 
     return 2;
 }
-
+//------------------------------------------------------------------------
 void CreateFromFile(HashTable *ht)
 {
     FILE *fp;
@@ -112,7 +107,7 @@ void CreateFromFile(HashTable *ht)
 
     fclose(fp);
 }
-
+//------------------------------------------------------------------------
 void Destroy(HashTable *ht)
 {
     free(*ht);
