@@ -18,7 +18,8 @@ void InsSort(RecordType r[], int length)
 {
     int i, j;
     
-    for(i = 2; i <= length; ++i){    //从2开始排，因为0号是监视哨，1号相当于已经排序的子集
+    for(i = 2; i <= length; ++i)    //从2开始排，因为0号是监视哨，1号相当于已经排序的子集
+    {    
         r[0] = r[i];
 
         for(j = i - 1; r[0].key < r[j].key; --j)
