@@ -51,8 +51,8 @@ static void sift(RecordType r[], int k, int m)
     //沿着i的孩子j，往下筛选
     while (j <= m && !finished)
     {
-        if (j < m && r[j].key < r[j + 1].key) //j+1是i右孩子的序号
-            ++j;    /* 若存在右子树，且右子树根的关键字大，则沿右分支"筛选" */
+        if (j < m && r[j].key < r[j + 1].key)   //j+1是i右孩子的序号
+            ++j;                          //若存在右子树，且右子树根的关键字大，则沿右分支"筛选"
             
         if (t.key >= r[j].key)  finished = true;    //筛选完毕
         else if(t.key < r[j].key)
