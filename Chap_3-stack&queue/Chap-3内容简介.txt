@@ -1,0 +1,52 @@
+.
+├── Chap-3内容简介.md
+├── Queue                   //队列
+│   ├── Makefile
+│   ├── Queue.pptx
+│   ├── main.c
+│   ├── queue.c
+│   ├── queue.h
+│   └── queue_elemtype.h
+├── Stack                   //栈
+│   ├── Stack.pptx
+│   ├── bracket             //栈的基本操作
+│   │   ├── stack.c
+│   │   ├── stack.h
+│   │   └── stack_main.c
+│   └── fill                //填色
+│       ├── fill.pptx
+│       ├── recur
+│       │   └── fill.c
+│       └── stack
+│           ├── Makefile
+│           ├── fill.c
+│           ├── stack.c
+│           ├── stack.h
+│           └── stack_elemtype.h
+├── adapter                 //容器
+│   ├── container.md
+│   ├── deque
+│   │   ├── Makefile
+│   │   ├── deque
+│   │   ├── deque.c
+│   │   ├── deque.h
+│   │   ├── elemtype.h
+│   │   └── main.c
+│   ├── queue
+│   │   ├── Makefile
+│   │   ├── elemtype.h
+│   │   ├── main.c
+│   │   ├── queue.c
+│   │   └── queue.h
+│   ├── stack
+│   │   ├── Makefile
+│   │   ├── elemtype.h
+│   │   ├── main.c
+│   │   ├── stack.c
+│   │   └── stack.h
+│   └── stack-C++
+│       ├── Makefile
+│       ├── list.h
+│       ├── main.cpp
+│       └── stack.h
+└── 栈和队列的基础知识.md
